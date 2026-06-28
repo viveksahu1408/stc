@@ -1,0 +1,7 @@
+# .gitignore file ke andar ye daal dena:
+db.sqlite3
+__pycache__/
+*.pyc
+.env
+v env/
+.venv/
