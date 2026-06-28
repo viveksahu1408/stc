@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Naya Maal Stock Entry</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-955 text-slate-100 min-h-screen font-sans antialiased bg-slate-950">
+
+    <nav class="bg-slate-900 border-b border-slate-800 p-4">
+        <div class="max-w-md mx-auto flex items-center gap-3">
+            <a href="{% url 'advance_reports' %}" class="text-slate-400 hover:text-white text-xl">⬅️</a>
+            <h1 class="text-lg font-bold text-amber-400">📦 Naye Maal ki Stock Entry</h1>
+        </div>
+    </nav>
+
+    <div class="max-w-md mx-auto p-4">
+        <form method="POST" class="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-4 shadow-2xl">
+            {% csrf_token %}
+
+            <div>
+                <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Supari Ki Category</label>
+                <select name="category" required class="w-full bg-slate-800 border border-slate-700 rounded-xl p-3 text-slate-200 focus:outline-none focus:border-amber-500">
+                    <option value="KHADI" selected>🪵 Khadi Supari</option>
+                    <option value="KATI">✂️ Kati Supari</option>
+                </select>
+            </div>
+
+            <div>
+                <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Variety Ka Naam</label>
+                <input type="text" name="variety_name" required placeholder="e.g. Vachraj, Jaam, Mora Moti, Normal" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-3 text-slate-200 focus:outline-none focus:border-amber-500 capitalize">
+                <p class="text-[10px] text-slate-500 mt-1">💡 Kati supari ho toh direct "Normal" ya "Kati" likh sakte hain.</p>
+            </div>
+
+            <div>
+                <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Brand Ka Naam</label>
+                <input type="text" name="brand_name" placeholder="e.g. Archana, Hina, STC" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-3 text-slate-200 focus:outline-none focus:border-amber-500 uppercase">
+            </div>
+
+            <div class="grid grid-cols-2 gap-3 border-t border-slate-800 pt-3">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Aaya Vajan (Kg)</label>
+                    <input type="number" step="0.01" name="quantity_kg" required placeholder="0.00" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-3 text-slate-200 font-bold text-amber-400 focus:outline-none focus:border-amber-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Kharidi Rate (Per Kg)</label>
+                    <input type="number" step="0.01" name="purchase_rate" required placeholder="₹ 0.00" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-3 text-slate-200 font-bold text-emerald-400 focus:outline-none focus:border-amber-500">
+                </div>
+            </div>
+            <p class="text-[10px] text-slate-500">⚠️ Kharidi rate bilkul sahi dalna, isi se net profit calculate hota hai.</p>
+
+            <button type="submit" class="w-full bg-amber-600 hover:bg-amber-500 text-white font-bold py-3.5 rounded-xl transition duration-200 shadow-lg shadow-amber-950/20 mt-2">
+                📥 Stock Me Maal Jama Karein
+            </button>
+        </form>
+    </div>
+
+</body>
+</html>

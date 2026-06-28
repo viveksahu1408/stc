@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sarman Trading Co. | Premium Quality Supari Wholesalers Katni</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #030712;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(245, 158, 11, 0.03) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(16, 185, 129, 0.03) 0px, transparent 50%);
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="text-slate-100 min-h-screen antialiased selection:bg-amber-500/20 selection:text-amber-300">
+
+    <!-- Premium Navigation Bar -->
+    <nav class="bg-slate-950/80 border-b border-slate-900 sticky top-0 z-50 backdrop-blur-md px-4 py-4 transition-all duration-300">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            
+            <!-- Branding -->
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-500 to-orange-500 flex items-center justify-center shadow-lg shadow-amber-500/20">
+                    <span class="text-xl">🪵</span>
+                </div>
+                <div>
+                    <h1 class="text-base font-extrabold tracking-tight text-white">Sarman Trading Co.</h1>
+                    <span class="text-[9px] text-amber-400 font-bold tracking-widest uppercase bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/20">Bilhari, Katni (M.P.)</span>
+                </div>
+            </div>
+
+            <!-- Desktop Menu Links -->
+            <div class="hidden md:flex items-center gap-8 text-xs font-semibold text-slate-400">
+                <a href="#home" class="hover:text-amber-400 transition-colors duration-200">Home</a>
+                <a href="#about" class="hover:text-amber-400 transition-colors duration-200">About Us</a>
+                <a href="#products" class="hover:text-amber-400 transition-colors duration-200">Our Products</a>
+                <a href="#contact" class="hover:text-amber-400 transition-colors duration-200">Contact & Map</a>
+            </div>
+
+            <!-- Secure Owner Portal Action -->
+            <div class="flex items-center gap-2">
+                <a href="{% url 'dashboard_home' %}" class="bg-gradient-to-r from-slate-900 to-slate-950 hover:from-slate-850 hover:to-slate-900 text-amber-400 border border-slate-800 font-bold px-4 py-2 rounded-xl text-xs transition-all duration-200 active:scale-95 shadow">
+                    <span>🔐</span> Owner Login
+                </a>
+            </div>
+
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="max-w-7xl mx-auto px-4 py-12 md:py-24 grid md:grid-cols-2 gap-12 items-center relative overflow-hidden">
+        <div class="absolute top-20 left-10 w-72 h-72 bg-amber-500/5 rounded-full blur-3xl -z-10"></div>
+        
+        <div class="space-y-6 text-center md:text-left">
+            <div class="inline-flex items-center gap-2 bg-amber-500/10 border border-amber-500/20 px-3 py-1 rounded-full text-[11px] font-bold text-amber-400 tracking-wide uppercase">
+                🌱 100% Shuddh Aur Natural Supari
+            </div>
+            <h1 class="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight text-white leading-[1.1]">
+                Sabse Kam Daam Me <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-500">Natural Khadi & Kati</span> Supari Ke Vikreta.
+            </h1>
+            <p class="text-slate-400 text-xs sm:text-sm max-w-xl mx-auto md:mx-0 leading-relaxed">
+                Mandi ke sabse saste aur behtareen rates par shuddh natural supari hasil karein. Bina kisi milawat ke, seedha behtareen maal aap tak pahonchaya jata hai.
+            </p>
+            
+            <!-- Home Delivery Flash Badge -->
+            <div class="bg-gradient-to-r from-emerald-500/10 to-teal-500/10 border border-emerald-500/20 p-3.5 rounded-2xl max-w-md mx-auto md:mx-0 flex items-center gap-3 shadow-xl">
+                <div class="w-9 h-9 rounded-xl bg-emerald-500/20 flex items-center justify-center text-lg text-emerald-400 shrink-0">🚚</div>
+                <div class="text-left">
+                    <p class="text-xs font-extrabold text-emerald-400 uppercase tracking-wide">Direct Home Delivery Available</p>
+                    <p class="text-[10px] text-slate-400">Aap kisi bhi area se order karein, maal surakshit aapke patte par deliver hoga.</p>
+                </div>
+            </div>
+
+            <div class="pt-2 flex flex-col sm:flex-row justify-center md:justify-start gap-3">
+                <a href="#products" class="bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 font-extrabold px-6 py-3.5 rounded-xl text-xs tracking-wide transition-all duration-200 hover:opacity-95 active:scale-95 shadow-lg shadow-amber-500/10 text-center">
+                    📦 Natural Maal Dekhein
+                </a>
+                <a href="#contact" class="bg-slate-900 hover:bg-slate-850 text-slate-200 border border-slate-800 font-bold px-6 py-3.5 rounded-xl text-xs tracking-wide transition-all duration-200 active:scale-95 text-center">
+                    📞 Saste Rates Ke Liye Baat Karein
+                </a>
+            </div>
+        </div>
+
+        <!-- Hero Graphic Cards Display with Real Supari References -->
+        <div class="relative flex justify-center items-center">
+            <div class="absolute w-80 h-80 bg-orange-500/5 rounded-full blur-3xl -z-10"></div>
+            <div class="grid grid-cols-2 gap-4 w-full max-w-md">
+                <div class="bg-gradient-to-b from-slate-900/80 to-slate-950/40 border border-slate-900 p-3 rounded-2xl shadow-2xl transform hover:-translate-y-2 transition-all duration-300">
+                    <div class="aspect-square bg-slate-950 rounded-xl overflow-hidden mb-3 border border-slate-900 relative group">
+                        <!-- Natural Betel Nuts / Khadi Supari Grid Reference -->
+                        <img src="https://t4.ftcdn.net/jpg/20/31/33/25/240_F_2031332523_rGhVznh0XVgDWZELoylyLP10fSE949SZ.jpg" alt="Natural Khadi Supari" class="w-full h-full object-cover opacity-85 group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <p class="text-xs font-bold text-amber-400">🪵 Sabut Khadi Supari</p>
+                    <p class="text-[10px] text-slate-500 mt-0.5">100% Shuddh Natural</p>
+                </div>
+                <div class="bg-gradient-to-b from-slate-900/80 to-slate-950/40 border border-slate-900 p-3 rounded-2xl shadow-2xl transform translate-y-6 hover:-translate-y-1 transition-all duration-300">
+                    <div class="aspect-square bg-slate-950 rounded-xl overflow-hidden mb-3 border border-slate-900 relative group">
+                        <!-- Sliced/Cut Betel Nut Reference -->
+                        <img src="https://t4.ftcdn.net/jpg/03/30/75/97/240_F_330759770_SMAIrSJOjkfUimVPk0kFM5IpmwfQfdRx.jpg" alt="Premium Kati Supari" class="w-full h-full object-cover opacity-85 group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <p class="text-xs font-bold text-orange-400">✂️ Saaf Kati Supari</p>
+                    <p class="text-[10px] text-slate-500 mt-0.5">Sunder Machine Cutting</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section & Founder Profile -->
+    <section id="about" class="bg-[#060b13] border-y border-slate-900/60 py-16 px-4">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+            
+            <!-- Founder Profile Block -->
+            <div class="bg-slate-950/60 border border-slate-900 p-6 rounded-3xl shadow-2xl relative overflow-hidden max-w-md mx-auto w-full">
+                <div class="absolute -top-12 -left-12 w-32 h-32 bg-amber-500/5 rounded-full blur-xl"></div>
+                <div class="flex items-center gap-4 border-b border-slate-900 pb-4">
+                    <div class="w-14 h-14 rounded-full bg-gradient-to-tr from-amber-500 via-orange-500 to-amber-300 p-[2px] shadow-xl">
+                        <div class="w-full h-full bg-slate-950 rounded-full flex items-center justify-center text-xl font-black text-white">SS</div>
+                    </div>
+                    <div>
+                        <h3 class="text-base font-extrabold text-white tracking-wide">Sandeep Sahu</h3>
+                        <p class="text-[10px] text-amber-400 font-bold uppercase tracking-wider">Owner & Founder</p>
+                    </div>
+                </div>
+                <p class="text-xs text-slate-400 leading-relaxed mt-4 italic">
+                    "Sarman Trading Company ka ek hi asool hai—bina kisi bade kharche ya dikhawe ke, seedha kisaan aur mandi se achha natural maal kam se kam daam me aap tak pahonchana. Bilhari (Katni) me hamari firm poore vishwas ke sath aapke liye khadi hai."
+                </p>
+            </div>
+
+            <div class="space-y-5 text-center md:text-left">
+                <h2 class="text-2xl sm:text-3xl font-black text-white tracking-tight">Hamare Baare Me (About Us)</h2>
+                <p class="text-xs sm:text-sm text-slate-400 leading-relaxed">
+                    Madhya Pradesh ki prasiddh mandi Katni ke Bilhari kshetra se hum behtareen quality ki Khadi aur Kati supari ka thok vyapar karte hain. Hamara poora focus shuddh vajan aur natural product par hota hai taaki chote aur bade sabhi retailers ko sabse zyada munafa mil sake.
+                </p>
+                <div class="grid grid-cols-2 gap-4 pt-2 max-w-sm mx-auto md:mx-0">
+                    <div class="bg-slate-950/40 border border-slate-900 p-3 rounded-xl">
+                        <span class="block text-lg font-black text-emerald-400">Sabse Kam</span>
+                        <span class="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Market Rate Guarantee</span>
+                    </div>
+                    <div class="bg-slate-950/40 border border-slate-900 p-3 rounded-xl">
+                        <span class="block text-lg font-black text-amber-400">Bilhari</span>
+                        <span class="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Katni Located Hub</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Product Showcase Matrix -->
+    <section id="products" class="max-w-7xl mx-auto px-4 py-16 space-y-8">
+        <div class="text-center space-y-2">
+            <h2 class="text-2xl sm:text-3xl font-black text-white tracking-tight">Hamari Natural Supari Varieties</h2>
+            <p class="text-xs text-slate-500 max-w-md mx-auto">Sasta daam aur asli natural quality bina kisi fancy packaging ke kharche ke.</p>
+        </div>
+
+        <div class="grid sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
+            
+            <!-- Product Card 1 -->
+            <div class="bg-[#090d16] border border-slate-900 rounded-3xl p-5 shadow-2xl relative overflow-hidden group hover:border-slate-800 transition-all duration-300">
+                <div class="aspect-[4/3] bg-slate-950 rounded-2xl overflow-hidden mb-4 border border-slate-900/80">
+                    <!-- Real Khadi Supari Selection Close-up -->
+                    <img src="https://t3.ftcdn.net/jpg/02/35/96/18/240_F_235961884_Nbx7ReV9grUExoxKtG4DgYtvlG4YsHU6.jpg" alt="Natural Whole Khadi Supari" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90">
+                </div>
+                <div>
+                    <h3 class="font-extrabold text-base text-white">🪵 Premium Khadi Supari</h3>
+                    <p class="text-xs text-slate-500 mt-1">Vachraj, Jaam, Mora Moti jaisi asli aur thos khadi varieties jo bina kisi chemical polish ke ekdam natural form me hain.</p>
+                </div>
+                <div class="mt-4 pt-3 border-t border-slate-950 flex justify-between items-center text-[11px]">
+                    <span class="text-slate-500">Quality Standard</span>
+                    <span class="font-bold text-amber-400 bg-amber-500/5 border border-amber-500/10 px-2 py-0.5 rounded">Unpolished Natural</span>
+                </div>
+            </div>
+
+            <!-- Product Card 2 -->
+            <div class="bg-[#090d16] border border-slate-900 rounded-3xl p-5 shadow-2xl relative overflow-hidden group hover:border-slate-800 transition-all duration-300">
+                <div class="aspect-[4/3] bg-slate-950 rounded-2xl overflow-hidden mb-4 border border-slate-900/80">
+                    <!-- Real Sliced Kati Supari Heap -->
+                    <img src="https://t4.ftcdn.net/jpg/03/30/76/03/240_F_330760396_EEesxFPNOrT6AndH0AWYh96khHgjAKiE.jpg" alt="Fine Machine Cutting Kati Supari" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90">
+                </div>
+                <div>
+                    <h3 class="font-extrabold text-base text-white">✂️ Shuddh Kati Supari</h3>
+                    <p class="text-xs text-slate-500 mt-1">Sunder barik cutting aur behtareen chhani hui machine-cut kati supari jo retail paan dukano par sabse zyada chalti hai.</p>
+                </div>
+                <div class="mt-4 pt-3 border-t border-slate-950 flex justify-between items-center text-[11px]">
+                    <span class="text-slate-500">Grade Form</span>
+                    <span class="font-bold text-orange-400 bg-orange-500/5 border border-orange-500/10 px-2 py-0.5 rounded">Super Uniform Cut</span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Modern Contact & Location Map Section -->
+    <section id="contact" class="max-w-5xl mx-auto px-4 py-12 grid md:grid-cols-2 gap-6 items-start">
+        
+        <!-- Form Panel -->
+        <div class="bg-[#090d16] border border-slate-900 rounded-3xl p-5 shadow-2xl space-y-4">
+            <div class="border-b border-slate-950 pb-3">
+                <h2 class="text-xs font-bold text-amber-400 uppercase tracking-widest flex items-center gap-1.5">
+                    <span>📞</span> Vyapar Enquiry Form
+                </h2>
+                <p class="text-[11px] text-slate-500 mt-0.5">Bulk ya retail order rates ki jankari ke liye message bhejein.</p>
+            </div>
+
+            <form class="space-y-3.5" onsubmit="event.preventDefault();">
+                <div>
+                    <label class="block text-[10px] uppercase font-bold text-slate-500 mb-1 tracking-wider">Aapka Naam</label>
+                    <input type="text" required placeholder="e.g. vivek Sahu" class="w-full bg-slate-950 border border-slate-850 rounded-xl p-2.5 text-xs text-slate-200 placeholder:text-slate-700 focus:outline-none focus:border-amber-500/50 transition-colors">
+                </div>
+                <div>
+                    <label class="block text-[10px] uppercase font-bold text-slate-500 mb-1 tracking-wider">Mobile Number</label>
+                    <input type="tel" required placeholder="e.g. 9893XXXXXX" class="w-full bg-slate-950 border border-slate-850 rounded-xl p-2.5 text-xs text-slate-200 placeholder:text-slate-700 focus:outline-none focus:border-amber-500/50 transition-colors">
+                </div>
+                <div>
+                    <label class="block text-[10px] uppercase font-bold text-slate-500 mb-1 tracking-wider">Sawaal / Order details</label>
+                    <textarea rows="3" placeholder="Aapko Khadi supari chahiye ya Kati, aur kitni quantity chahiye likhein..." class="w-full bg-slate-950 border border-slate-850 rounded-xl p-2.5 text-xs text-slate-200 placeholder:text-slate-700 focus:outline-none focus:border-amber-500/50 transition-colors"></textarea>
+                </div>
+
+                <button type="button" class="w-full bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 font-extrabold py-3 rounded-xl text-xs tracking-wide shadow-lg shadow-amber-500/10 flex items-center justify-center gap-2 transition-all active:scale-95">
+                    💬 WhatsApp Par Rate Poochein
+                </button>
+            </form>
+        </div>
+
+        <!-- Address & Live Google Map Embedded Container -->
+        <div class="bg-[#090d16] border border-slate-900 rounded-3xl p-5 shadow-2xl space-y-4 h-full flex flex-col justify-between">
+            <div class="space-y-2">
+                <h3 class="text-xs font-bold text-slate-300 uppercase tracking-widest flex items-center gap-1.5">
+                    <span>📍</span> Main Office & Godown Address
+                </h3>
+                <div class="bg-slate-950/60 border border-slate-950 p-3.5 rounded-xl">
+                    <p class="text-xs font-bold text-white tracking-wide">Sarman Trading Company</p>
+                    <p class="text-xs text-slate-400 mt-1 leading-relaxed">
+                        Bilhari, Tehsil: Katni,<br>
+                        District: Katni, Madhya Pradesh - 483501
+                    </p>
+                    <span class="inline-block text-[10px] text-emerald-400 bg-emerald-500/5 border border-emerald-500/10 px-2 py-0.5 rounded font-medium mt-2">📍 Landmark: Main Bilhari Market</span>
+                </div>
+            </div>
+
+            <!-- Google Map Iframe for Katni/Bilhari Area Integration -->
+            <div class="w-full h-44 rounded-2xl overflow-hidden border border-slate-950 relative shadow-inner bg-slate-950 mt-2">
+                <iframe 
+                    class="w-full h-full opacity-75 filter grayscale invert" 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14567.143217030889!2d80.31298455!3d24.1091566!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x398158afbba061d7%3A0x7fe3be43cc14b03a!2sBilhari%2C%20Madhya%20Pradesh!5e0!3m2!1sen!2sin!4v1710000000000!5m2!1sen!2sin" 
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- Footer & Social Icons Stack -->
+    <footer class="bg-slate-950 border-t border-slate-900 py-8 px-4 text-center space-y-4">
+        <p class="text-xs text-slate-500">© 2026 Sarman Trading Company. All Rights Reserved | Bilhari, Katni (M.P.)</p>
+        
+        <!-- Real Operational Call/Connect Icons -->
+        <div class="flex justify-center items-center gap-4 text-slate-400 text-sm">
+            <a href="#" class="w-8 h-8 rounded-lg bg-slate-900 border border-slate-850 flex items-center justify-center hover:text-amber-400 hover:border-amber-500/20 transition-all active:scale-90">🌐</a>
+            <a href="#" class="w-8 h-8 rounded-lg bg-slate-900 border border-slate-850 flex items-center justify-center hover:text-emerald-400 hover:border-emerald-500/20 transition-all active:scale-90">💬</a>
+            <a href="#" class="w-8 h-8 rounded-lg bg-slate-900 border border-slate-850 flex items-center justify-center hover:text-blue-400 hover:border-blue-500/20 transition-all active:scale-90">📞</a>
+        </div>
+        
+        <p class="text-[10px] text-slate-600 font-medium">Shuddh Supari • Sasta Daam • Pakka Vishwas</p>
+    </footer>
+
+</body>
+</html>

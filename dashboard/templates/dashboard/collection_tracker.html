@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collection Tracker & Reminders</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen font-sans antialiased">
+
+    <nav class="bg-slate-900 border-b border-slate-800 p-4 sticky top-0 z-50">
+        <div class="max-w-4xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <a href="{% url 'dashboard_home' %}" class="text-slate-400 hover:text-white text-xl">⬅️</a>
+                <h1 class="text-lg font-bold text-amber-400">📋 Collection & Payment Calendar</h1>
+            </div>
+            <span class="text-xs bg-slate-800 px-3 py-1.5 rounded-full text-slate-400 border border-slate-700">
+                Live Records
+            </span>
+        </div>
+    </nav>
+
+    <div class="max-w-4xl mx-auto p-4">
+        <form method="GET" action="{% url 'collection_tracker' %}" class="bg-slate-900 border border-slate-800 rounded-2xl p-4 grid grid-cols-1 md:grid-cols-3 gap-3 shadow-xl">
+            
+            <div class="relative">
+                <input type="text" name="search" value="{{ search_query }}" placeholder="🔍 Grahak ka naam dhoondhein..." class="w-full bg-slate-800 border border-slate-700 rounded-xl p-3 text-sm text-slate-200 focus:outline-none focus:border-amber-500">
+            </div>
+
+            <div>
+                <select name="location" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-3 text-sm text-slate-200 focus:outline-none focus:border-amber-500">
+                    <option value="">📍 Sabhi Gaon / Areas</option>
+                    {% for loc in active_locations %}
+                    <option value="{{ loc }}" {% if selected_location == loc %}selected{% endif %}>{{ loc }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="flex gap-2">
+                <button type="submit" class="flex-1 bg-amber-600 hover:bg-amber-500 text-white font-semibold rounded-xl text-sm transition">
+                    Filter Apply Karein
+                </button>
+                {% if search_query or selected_location %}
+                <a href="{% url 'collection_tracker' %}" class="bg-slate-800 hover:bg-slate-700 text-slate-300 px-4 flex items-center justify-center rounded-xl text-sm transition border border-slate-700">
+                    Reset
+                </a>
+                {% endif %}
+            </div>
+        </form>
+
+        <div class="mt-6 space-y-3">
+            <h2 class="text-xs font-bold text-slate-400 uppercase tracking-wider px-1">Upcoming & Overdue Payments (Tarikh ke hisab se set)</h2>
+
+            {% if orders %}
+                {% for order in orders %}
+                <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 flex flex-col sm:flex-row justify-between sm:items-center gap-3 hover:border-slate-700 transition">
+                    
+                    <div class="space-y-1">
+                        <div class="flex items-center gap-2">
+                            <span class="font-bold text-slate-200 capitalize text-base">{{ order.customer.name }}</span>
+                            <span class="text-xs bg-slate-800 px-2 py-0.5 rounded text-slate-400 border border-slate-700/60">📍 {{ order.customer.village_or_area }}</span>
+                        </div>
+                        <div class="text-xs text-slate-400 flex flex-wrap gap-x-4 gap-y-1">
+                            <span>📦 Maal: {{ order.product_item.category }} ({{ order.product_item.variety_name }})</span>
+                            <span>⚖️ Vajan: {{ order.quantity_kg }} kg</span>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-between sm:justify-end gap-6 border-t sm:border-t-0 border-slate-800/60 pt-3 sm:pt-0">
+                        <div class="text-left sm:text-right">
+                            <p class="text-[10px] text-slate-500 uppercase tracking-wider">Vada Tarikh</p>
+                            <p class="text-sm font-semibold text-amber-400">{{ order.promise_date|date:"M d, Y" }}</p>
+                        </div>
+                        <div class="text-left sm:text-right">
+                            <p class="text-[10px] text-slate-500 uppercase tracking-wider">Baqi Rashi</p>
+                            <p class="text-lg font-black text-rose-500">₹{{ order.amount_due }}</p>
+                        </div>
+                        <div>
+                            <a href="https://wa.me/91{{ order.customer.phone_number }}?text=Ram Ram ji {{ order.customer.name }} bhaiji, aapka Sarman Trading Company ka rashi ₹{{ order.amount_due }} ka vada tarikh {{ order.promise_date|date:'d-m-Y' }} hai. Kripya dhyan dein." target="_blank" class="bg-emerald-600/10 hover:bg-emerald-600 text-emerald-400 hover:text-white p-2 px-3 rounded-lg text-xs font-semibold transition border border-emerald-500/20 flex items-center gap-1">
+                                💬 Remind
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-8 text-center">
+                    <p class="text-sm text-slate-500">Sukun hai! Is filter ke hisab se koi pending ya upcoming udhari nahi hai. 👍</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+</body>
+</html>

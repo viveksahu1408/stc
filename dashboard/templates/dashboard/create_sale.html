@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Naya Sauda - Bill Entry</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen font-sans antialiased">
+
+    <nav class="bg-slate-900 border-b border-slate-800 p-4">
+        <div class="max-w-md mx-auto flex items-center gap-3">
+            <a href="{% url 'dashboard_home' %}" class="text-slate-400 hover:text-white text-xl">⬅️</a>
+            <h1 class="text-lg font-bold text-emerald-400">➕ Naya Sauda / Bill Entry</h1>
+        </div>
+    </nav>
+
+    <div class="max-w-md mx-auto p-4">
+        <form method="POST" class="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-4 shadow-2xl">
+            {% csrf_token %}
+
+            <div>
+                <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Grahak Chunein</label>
+                <select name="customer" required class="w-full bg-slate-800 border border-slate-700 rounded-xl p-3 text-slate-200 focus:outline-none focus:border-emerald-500 text-sm">
+                    <option value="">-- Grahak Select Karein --</option>
+                    {% for c in customers %}
+                    <option value="{{ c.id }}">{{ c.name }} (📍 {{ c.village_or_area }})</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div>
+                <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Maal Ka Type (Category)</label>
+                <select id="category_select" onchange="filterProducts()" required class="w-full bg-slate-800 border border-slate-700 rounded-xl p-3 text-slate-200 focus:outline-none focus:border-emerald-500 text-sm">
+                    <option value="">-- Type Select Karein --</option>
+                    <option value="KATI">✂️ Kati Supari</option>
+                    <option value="KHADI">🪵 Khadi Supari</option>
+                </select>
+            </div>
+
+            <div id="product_item_wrapper" class="hidden">
+                <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Kaun Sa Brand / Variety Bika?</label>
+                <select id="product_item_select" name="product_item" required class="w-full bg-slate-800 border border-slate-700 rounded-xl p-3 text-slate-200 focus:outline-none focus:border-emerald-500 text-sm">
+                    <option value="">-- Variety & Brand Chunein --</option>
+                    {% for item in inventory_items %}
+                    <option value="{{ item.id }}" data-category="{{ item.category }}">
+                        {{ item.variety_name }} [Brand: {{ item.brand_name }}] (Avail: {{ item.available_stock_kg|floatformat:1 }}kg)
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3 border-t border-slate-800/60 pt-3">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Vajan (Kilo)</label>
+                    <input type="number" step="0.01" name="quantity_kg" id="quantity" required placeholder="0.00" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-3 text-slate-200 font-bold focus:outline-none focus:border-emerald-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Bikri Rate (Per Kg)</label>
+                    <input type="number" step="0.01" name="rate_per_kg" id="rate" required placeholder="₹ 0.00" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-3 text-slate-200 font-bold text-emerald-400 focus:outline-none focus:border-emerald-500">
+                </div>
+            </div>
+
+            <div class="bg-slate-950 border border-slate-800 rounded-xl p-3 flex justify-between items-center">
+                <span class="text-xs text-slate-400 font-medium">Total Bill Amount:</span>
+                <span class="text-xl font-bold text-emerald-400" id="total_display">₹0.00</span>
+            </div>
+
+            <div>
+                <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Paisa Kaise Mila?</label>
+                <div class="grid grid-cols-3 gap-2 text-xs">
+                    <label class="flex flex-col items-center justify-center bg-slate-800 border border-slate-700 rounded-xl p-2.5 cursor-pointer has-[:checked]:border-emerald-500 select-none">
+                        <input type="radio" name="payment_mode" value="CASH" id="mode_cash" checked class="mb-1">
+                        <span>Cash</span>
+                    </label>
+                    <label class="flex flex-col items-center justify-center bg-slate-800 border border-slate-700 rounded-xl p-2.5 cursor-pointer has-[:checked]:border-rose-500 select-none">
+                        <input type="radio" name="payment_mode" value="CREDIT" id="mode_credit" class="mb-1">
+                        <span>Udhari</span>
+                    </label>
+                    <label class="flex flex-col items-center justify-center bg-slate-800 border border-slate-700 rounded-xl p-2.5 cursor-pointer has-[:checked]:border-blue-500 select-none">
+                        <input type="radio" name="payment_mode" value="PARTIAL" id="mode_partial" class="mb-1">
+                        <span>Partial</span>
+                    </label>
+                </div>
+            </div>
+
+            <div id="conditional_fields" class="hidden space-y-4 border-t border-slate-800/60 pt-3">
+                <div id="cash_paid_box" class="hidden">
+                    <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Kitna Cash Diya?</label>
+                    <input type="number" step="0.01" name="amount_paid" id="amount_paid" placeholder="0.00" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-3 text-slate-200 font-bold text-blue-400 focus:outline-none focus:border-emerald-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Kab Paisa Dega? (Vada Tarikh)</label>
+                    <input type="date" name="promise_date" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-3 text-slate-200 focus:outline-none focus:border-emerald-500 text-sm">
+                </div>
+            </div>
+
+            <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3.5 rounded-xl transition duration-200 shadow-lg mt-2">
+                📦 Sauda Lock Karein (Save Bill)
+            </button>
+        </form>
+    </div>
+
+    <script>
+        const quantityInput = document.getElementById('quantity');
+        const rateInput = document.getElementById('rate');
+        const totalDisplay = document.getElementById('total_display');
+        
+        const modeCash = document.getElementById('mode_cash');
+        const modeCredit = document.getElementById('mode_credit');
+        const modePartial = document.getElementById('mode_partial');
+        
+        const conditionalFields = document.getElementById('conditional_fields');
+        const cashPaidBox = document.getElementById('cash_paid_box');
+        const amountPaidInput = document.getElementById('amount_paid');
+
+        // 1. Dropdown Brand Filter Logic
+        function filterProducts() {
+            const categorySelect = document.getElementById('category_select');
+            const itemSelect = document.getElementById('product_item_select');
+            const wrapper = document.getElementById('product_item_wrapper');
+            const selectedCategory = categorySelect.value;
+
+            if (!selectedCategory) {
+                wrapper.classList.add('hidden');
+                return;
+            }
+
+            const options = itemSelect.options;
+            for (let i = 0; i < options.length; i++) {
+                const opt = options[i];
+                const optCategory = opt.getAttribute('data-category');
+
+                if (i === 0) continue;
+
+                if (optCategory === selectedCategory) {
+                    opt.style.display = 'block';
+                } else {
+                    opt.style.display = 'none';
+                }
+            }
+
+            itemSelect.selectedIndex = 0;
+            wrapper.classList.remove('hidden');
+        }
+
+        // 2. Live Total Calculator Logic
+        function calculateTotal() {
+            const qty = parseFloat(quantityInput.value) || 0;
+            const rate = parseFloat(rateInput.value) || 0;
+            const total = qty * rate;
+            totalDisplay.innerText = '₹' + total.toFixed(2);
+            
+            // Background Auto-Fill logic based on selection
+            if (modeCash.checked) {
+                amountPaidInput.value = total.toFixed(2);
+            }
+        }
+
+        quantityInput.addEventListener('input', calculateTotal);
+        rateInput.addEventListener('input', calculateTotal);
+
+        // 3. Toggle Fields Based on Payment Mode
+        function handlePaymentModeChange() {
+            if (modeCash.checked) {
+                conditionalFields.classList.add('hidden');
+                cashPaidBox.classList.add('hidden');
+                calculateTotal();
+            } else if (modeCredit.checked) {
+                conditionalFields.classList.remove('hidden');
+                cashPaidBox.classList.add('hidden');
+                amountPaidInput.value = 0; 
+            } else if (modePartial.checked) {
+                conditionalFields.classList.remove('hidden');
+                cashPaidBox.classList.remove('hidden');
+                amountPaidInput.value = ''; 
+            }
+        }
+
+        modeCash.addEventListener('change', handlePaymentModeChange);
+        modeCredit.addEventListener('change', handlePaymentModeChange);
+        modePartial.addEventListener('change', handlePaymentModeChange);
+    </script>
+</body>
+</html>

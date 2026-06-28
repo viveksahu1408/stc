@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sarman Trading Co. | Advance Business Reports</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #030712;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(16, 185, 129, 0.04) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(245, 158, 11, 0.04) 0px, transparent 50%);
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .premium-scroll::-webkit-scrollbar {
+            width: 4px;
+        }
+        .premium-scroll::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.02);
+        }
+        .premium-scroll::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 99px;
+        }
+    </style>
+</head>
+<body class="text-slate-100 min-h-screen antialiased selection:bg-emerald-500/20 selection:text-emerald-300">
+
+    <!-- Top Header Navigation (Same as Dashboard) -->
+    <nav class="bg-slate-950/70 border-b border-slate-900 sticky top-0 z-50 backdrop-blur-md px-4 py-3">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row gap-4 justify-between items-center">
+            
+            <!-- Company Branding & Back Arrow -->
+            <div class="flex items-center justify-between w-full md:w-auto">
+                <div class="flex items-center gap-3">
+                    <a href="{% url 'dashboard_home' %}" class="w-9 h-9 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800/80 flex items-center justify-center text-slate-400 hover:text-white transition-all active:scale-95 shadow">
+                        ⬅️
+                    </a>
+                    <div>
+                        <h1 class="text-base font-extrabold tracking-tight text-white flex items-center gap-2">
+                            Sales & Stock Analytics
+                        </h1>
+                        <span class="text-[10px] text-emerald-400 font-bold tracking-widest uppercase bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">Sarman Trading Co.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scrollable Actions Stack -->
+            <div class="flex items-center gap-2 overflow-x-auto w-full md:w-auto pb-2 md:pb-0 no-scrollbar">
+                <a href="{% url 'dashboard_home' %}" class="shrink-0 text-xs bg-slate-900 hover:bg-slate-800 text-emerald-400 font-semibold px-4 py-2.5 rounded-xl border border-slate-800 transition-all active:scale-95 flex items-center gap-2">
+                    <span>⬅️</span> Main Dashboard
+                </a>
+                
+                <a href="{% url 'add_stock' %}" class="shrink-0 text-xs bg-gradient-to-r from-amber-500 to-orange-500 hover:opacity-95 text-slate-950 font-bold px-4 py-2.5 rounded-xl transition-all active:scale-95 flex items-center gap-2 shadow-lg shadow-amber-500/10">
+                    <span>📥</span> Naya Stock Entry
+                </a>
+                <a href="{% url 'ledger_list' %}" class="shrink-0 text-xs bg-slate-900 hover:bg-slate-800 text-emerald-400 font-semibold px-4 py-2.5 rounded-xl border border-slate-800 transition-all active:scale-95 flex items-center gap-2">
+                    <span>📖</span> Khata Ledger
+                </a>
+                <a href="{% url 'collection_tracker' %}" class="shrink-0 text-xs bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 font-semibold px-4 py-2.5 rounded-xl border border-amber-500/10 transition-all active:scale-95 flex items-center gap-2">
+                    <span>📅</span> Calendar
+                </a>
+            </div>
+
+        </div>
+    </nav>
+
+    <!-- Main Content Grid -->
+    <div class="max-w-7xl mx-auto p-4 space-y-5">
+
+        <!-- Advanced Filter Engine Form Layout -->
+        <form method="GET" class="bg-[#090d16] border border-slate-900 rounded-2xl p-4 grid grid-cols-2 md:grid-cols-6 gap-3 shadow-2xl">
+            <div class="col-span-2 md:col-span-1">
+                <label class="block text-[10px] uppercase font-bold text-slate-500 mb-1.5 tracking-wider">Start Date</label>
+                <input type="date" name="start_date" value="{{ selected_start }}" class="w-full bg-slate-950 border border-slate-850 rounded-xl p-2.5 text-xs text-slate-200 focus:outline-none focus:border-emerald-500/50 transition-colors">
+            </div>
+            <div class="col-span-2 md:col-span-1">
+                <label class="block text-[10px] uppercase font-bold text-slate-500 mb-1.5 tracking-wider">End Date</label>
+                <input type="date" name="end_date" value="{{ selected_end }}" class="w-full bg-slate-950 border border-slate-850 rounded-xl p-2.5 text-xs text-slate-200 focus:outline-none focus:border-emerald-500/50 transition-colors">
+            </div>
+            <div class="col-span-1">
+                <label class="block text-[10px] uppercase font-bold text-slate-500 mb-1.5 tracking-wider">Village/Area</label>
+                <select name="village" class="w-full bg-slate-950 border border-slate-850 rounded-xl p-2.5 text-xs text-slate-300 focus:outline-none focus:border-emerald-500/50 transition-colors">
+                    <option value="">Sabhi Gaon</option>
+                    {% for v in all_villages %}
+                    <option value="{{ v }}" {% if selected_village == v %}selected{% endif %}>{{ v }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-span-1">
+                <label class="block text-[10px] uppercase font-bold text-slate-500 mb-1.5 tracking-wider">Variety Type</label>
+                <select name="variety" class="w-full bg-slate-950 border border-slate-850 rounded-xl p-2.5 text-xs text-slate-300 focus:outline-none focus:border-emerald-500/50 transition-colors">
+                    <option value="">Sabhi Variety</option>
+                    {% for vr in all_varieties %}
+                    <option value="{{ vr }}" {% if selected_variety == vr %}selected{% endif %}>{{ vr }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-span-1">
+                <label class="block text-[10px] uppercase font-bold text-slate-500 mb-1.5 tracking-wider">Brand Name</label>
+                <select name="brand" class="w-full bg-slate-950 border border-slate-850 rounded-xl p-2.5 text-xs text-slate-300 focus:outline-none focus:border-emerald-500/50 transition-colors">
+                    <option value="">Sabhi Brands</option>
+                    {% for b in all_brands %}
+                    <option value="{{ b }}" {% if selected_brand == b %}selected{% endif %}>{{ b }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-span-1 flex items-end gap-2 mt-2 md:mt-0">
+                <button type="submit" class="flex-1 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold py-2.5 rounded-xl text-xs transition-all active:scale-95 shadow-md">Apply</button>
+                <a href="{% url 'advance_reports' %}" class="flex-1 bg-slate-950 hover:bg-slate-900 text-center text-slate-400 py-2.5 rounded-xl text-xs border border-slate-850 transition-colors">Clear</a>
+            </div>
+        </form>
+
+        <!-- KPI Metrics Panels Grid -->
+        <div class="grid grid-cols-3 gap-3.5">
+            <!-- Filtered Bikri -->
+            <div class="bg-gradient-to-b from-slate-900/60 to-slate-950/40 p-4 rounded-2xl border border-slate-900/80 shadow-2xl relative overflow-hidden group">
+                <p class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Filtered Total Bikri</p>
+                <p class="text-base sm:text-xl font-extrabold text-emerald-400 mt-2 tracking-tight">₹{{ total_filtered_sales|floatformat:2 }}</p>
+                <div class="absolute bottom-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-emerald-500/30 to-transparent"></div>
+            </div>
+            <!-- Filtered Vajan -->
+            <div class="bg-gradient-to-b from-slate-900/60 to-slate-950/40 p-4 rounded-2xl border border-slate-900/80 shadow-2xl relative overflow-hidden group">
+                <p class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Filtered Total Vajan</p>
+                <p class="text-base sm:text-xl font-extrabold text-blue-400 mt-2 tracking-tight">{{ total_filtered_qty|floatformat:1 }} <span class="text-xs font-medium text-slate-400">kg</span></p>
+                <div class="absolute bottom-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-blue-500/30 to-transparent"></div>
+            </div>
+            <!-- Net Profit -->
+            <div class="bg-gradient-to-b from-slate-900/60 to-slate-950/40 p-4 rounded-2xl border border-slate-900/80 shadow-2xl relative overflow-hidden group">
+                <p class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">शुद्ध Net Profit 💰</p>
+                <p class="text-base sm:text-xl font-extrabold text-amber-400 mt-2 tracking-tight drop-shadow-[0_0_10px_rgba(245,158,11,0.1)]">₹{{ total_profit|floatformat:2 }}</p>
+                <div class="absolute bottom-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-amber-500/30 to-transparent"></div>
+            </div>
+        </div>
+
+        <!-- Live Stock Database Matrix Table Section -->
+        <div class="bg-[#090d16] rounded-2xl border border-slate-900 p-4 shadow-2xl overflow-hidden">
+            <h2 class="text-xs font-bold text-amber-400 uppercase tracking-widest mb-3.5 flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
+                📦 Category, Variety & Brand Wise Live Stock Status
+            </h2>
+            <div class="overflow-x-auto no-scrollbar rounded-xl border border-slate-900">
+                <table class="w-full text-left border-collapse text-xs">
+                    <thead>
+                        <tr class="text-slate-400 font-bold bg-slate-950/80 border-b border-slate-900">
+                            <th class="p-3.5 tracking-wider uppercase text-[10px]">Category</th>
+                            <th class="p-3.5 tracking-wider uppercase text-[10px]">Variety</th>
+                            <th class="p-3.5 tracking-wider uppercase text-[10px]">Brand</th>
+                            <th class="p-3.5 tracking-wider uppercase text-[10px] text-right">Available Stock</th>
+                        </tr>
+                    </table>
+                </div>
+                <div class="overflow-x-auto no-scrollbar max-h-72 overflow-y-auto premium-scroll">
+                    <table class="w-full text-left border-collapse text-xs">
+                    <tbody class="divide-y divide-slate-900 bg-slate-950/20">
+                        {% for st in live_stock %}
+                        <tr class="hover:bg-slate-900/40 transition-colors">
+                            <td class="p-3.5 font-medium text-slate-400 w-1/4">{{ st.get_category_display }}</td>
+                            <td class="p-3.5 text-emerald-400 font-bold tracking-wide w-1/4">{{ st.variety_name }}</td>
+                            <td class="p-3.5 text-slate-200 w-1/4">
+                                <span class="bg-slate-900 text-slate-300 px-2.5 py-1 rounded-md border border-slate-850 font-mono text-[11px] font-semibold">{{ st.brand_name }}</span>
+                            </td>
+                            <td class="p-3.5 text-right font-black w-1/4 text-sm {% if st.available_stock_kg < 50 %}text-rose-400 drop-shadow-[0_0_10px_rgba(244,63,94,0.15)]{% else %}text-slate-100{% endif %}">
+                                {{ st.available_stock_kg|floatformat:1 }} <span class="text-[10px] font-medium text-slate-500">kg</span>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Filtered Sales Log Feed Container -->
+        <div class="bg-[#090d16] rounded-2xl border border-slate-900 p-4 shadow-2xl">
+            <h2 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3.5 flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-slate-500"></span>
+                📖 Filtered Sales History (Kise Kya Becha)
+            </h2>
+            <div class="space-y-2 max-h-80 overflow-y-auto pr-1 premium-scroll">
+                {% for order in orders %}
+                <div class="bg-slate-950/40 p-4 rounded-xl border border-slate-900 flex flex-col sm:flex-row gap-3 justify-between sm:items-center text-xs hover:border-slate-800 transition-all duration-150">
+                    <div class="space-y-1">
+                        <div class="flex flex-wrap items-center gap-2">
+                            <p class="font-extrabold text-white tracking-wide capitalize text-sm">{{ order.customer.name }}</p>
+                            <span class="text-[10px] bg-slate-900 text-slate-400 px-2 py-0.5 rounded border border-slate-850 lowercase">
+                                {{ order.customer.village_or_area }}
+                            </span>
+                        </div>
+                        <p class="text-slate-400 flex flex-wrap items-center gap-1.5 pt-0.5">
+                            Item: <span class="text-emerald-400 font-bold bg-emerald-500/5 px-1.5 py-0.5 rounded border border-emerald-500/10">{{ order.product_item.variety_name }} [{{ order.product_item.brand_name }}]</span> 
+                            <span class="text-slate-700">|</span> 
+                            Qty: <span class="font-extrabold text-slate-200">{{ order.quantity_kg }}kg</span>
+                        </p>
+                    </div>
+                    <div class="flex items-center justify-between sm:flex-col sm:items-end sm:justify-center border-t border-slate-900 sm:border-0 pt-2 sm:pt-0">
+                        <p class="font-black text-slate-100 text-sm">₹{{ order.total_amount|floatformat:2 }}</p>
+                        <p class="text-[10px] text-slate-500 font-medium sm:mt-1">{{ order.date }}</p>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="text-center py-10 bg-slate-950/20 rounded-xl border border-dashed border-slate-900">
+                    <p class="text-xs text-slate-500 tracking-wide">Is filter criteria me koi purana sales record nahi mila.</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

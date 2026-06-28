@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Portal Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex items-center justify-center p-4 font-sans antialiased">
+
+    <div class="w-full max-w-md bg-slate-900 border border-slate-800 rounded-3xl p-6 space-y-6 shadow-2xl relative overflow-hidden">
+        
+        <div class="text-center space-y-2">
+            <div class="inline-flex items-center justify-center w-12 h-12 bg-amber-500/10 text-amber-400 border border-amber-500/20 rounded-2xl text-xl mb-2">
+                🔒
+            </div>
+            <h1 class="text-xl font-bold text-slate-200">Sarman Management Portal</h1>
+            <p class="text-xs text-slate-500">Sirf authorized staff ke liye permission hai.</p>
+        </div>
+
+        <form method="POST" class="space-y-4">
+            {% csrf_token %}
+            
+            {% if form.errors %}
+            <div class="bg-rose-500/10 border border-rose-500/20 text-rose-400 rounded-xl p-3 text-xs font-medium text-center">
+                ❌ Username ya Password galat hai bhai!
+            </div>
+            {% endif %}
+
+            <div>
+                <label class="block text-[11px] font-semibold text-slate-400 uppercase tracking-wider mb-2">Username</label>
+                <input type="text" name="username" required placeholder="Sandeep_Bhaiya" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-slate-200 focus:outline-none focus:border-amber-500">
+            </div>
+
+            <div>
+                <label class="block text-[11px] font-semibold text-slate-400 uppercase tracking-wider mb-2">Password</label>
+                <input type="password" name="password" required placeholder="••••••••" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-slate-200 focus:outline-none focus:border-amber-500">
+            </div>
+
+            <button type="submit" class="w-full bg-amber-600 hover:bg-amber-500 text-white font-bold py-3.5 rounded-xl text-sm transition duration-200 shadow-lg mt-2">
+                Verify & Enter Dashboard ➡️
+            </button>
+        </form>
+    </div>
+
+</body>
+</html>
